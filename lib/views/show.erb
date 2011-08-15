@@ -1,5 +1,12 @@
 <html>
 <body>
-<h1>Hi</h1>  
+<h1>Hi</h1>
+
+<% @supervisors.each do |supervisor| -%>
+  <tr>
+    <td><%= supervisor.name %></td>
+    <td><%= supervisor.last_checkin_at %></td>
+  </tr>
+<% end -%>
 </body>
 </html>

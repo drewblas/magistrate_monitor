@@ -1,4 +1,7 @@
 require 'sinatra/base'
+require 'sinatra-activerecord'
+
+require 'supervisor'
 
 module MagistrateMonitor
   class Server < Sinatra::Base
@@ -7,9 +10,23 @@ module MagistrateMonitor
     set :views,  "#{dir}/views"
     set :public, "#{dir}/public"
     set :static, true
-    
+        
     get '/', :provides => 'html' do
+      @supervisors = Supervisor.all
+      
       erb :show
+    end
+    
+    get '/api/status/:name', :provides => 'json' do
+      supervisor = Supervisor.find_or_create_by_name params[:name]
+      
+      
+    end
+    
+    post '/api/status/:name', :provides => 'json' do
+      @supervisor = Supervisor.find_or_create_by_name params[:name]
+      
+      @supervisor.update_attributes :last_checkin_at => Time.now, :status => params[:status]
     end
 
     # get '/up.txt' do
@@ -34,6 +51,7 @@ module MagistrateMonitor
         klass = check.class
         klass.respond_to?(:display_name) ? klass.display_name : klass.name
       end
+      
       
     end
   end

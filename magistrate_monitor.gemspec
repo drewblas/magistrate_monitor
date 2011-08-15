@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name = "Magistrate Monitor"
+  s.name = "magistrate_monitor"
   s.version = "0.1.0"
   
   s.summary = "The user frontend to monitoring and managing the magistrate gem"
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/magistrate_monitor.rb",
-    "lib/server.rb"
+    "lib/server.rb",
     "spec/spec_helper.rb"
   ]
   
@@ -38,8 +38,11 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb"
   ]
 
+  s.add_development_dependency('rake')
   s.add_development_dependency('rspec', "~> 2.6.0")
   s.add_development_dependency('rcov', '>= 0')
-  s.add_runtime_dependency('sinatra', '~> 1.2.6'])
+  s.add_development_dependency('sqlite3')
+  s.add_runtime_dependency('sinatra', '~> 1.2.6')
+  s.add_runtime_dependency('activerecord', '>= 3.0')
+  s.add_runtime_dependency('activesupport', '>= 3.0')
 end
-
