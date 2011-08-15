@@ -35,8 +35,6 @@ module Sinatra
       app.helpers ActiveRecordHelper
       
       app.configure do
-        puts 'configuring'
-        
         if defined?(Rails)
           env = Rails.env
           file = File.join(Rails.root, "config", "database.yml")

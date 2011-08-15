@@ -1,0 +1,45 @@
+<h1>MagistrateMonitor :: Supervisor list</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Supervisor</th>
+      <th>Worker</th>
+      <th>State</th>
+      <th>Known Target State</th>
+      <th>Set Target State</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+  
+  <% @supervisors.each do |supervisor| %>
+    <tr>
+      <th><%= supervisor.name %><br>
+          <%= supervisor.last_checkin_at %></th>
+    </tr>
+    <% supervisor.status.each do |k,v| %>
+      <tr>
+        <td> - </td>
+        <td><%= k %></td>
+        <td><%= v['state'] %></td>
+        <td><%= v['target_state']%></td>
+        <td><%= supervisor.databag[k]['target_state'] if supervisor.databag[k].is_a?(Hash) %></td>
+        <td>
+          <% if v['state'] != 'running' %>
+            <a href="<%= url_for_worker(supervisor, k, 'running') %>">Run</a>
+          <% end %>
+        </td>
+        <td>
+          <% if v['state'] != 'stopped' %>
+            <a href="<%= url_for_worker(supervisor, k, 'stopped') %>">Stop</a>
+          <% end %>
+        </td>
+        <td>
+          <% if v['state'] != 'unmonitored' %>
+            <a href="<%= url_for_worker(supervisor, k, 'unmonitored') %>">Unmonitor</a>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

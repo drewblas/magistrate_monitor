@@ -12,39 +12,53 @@ module MagistrateMonitor
     set :static, true
         
     get '/', :provides => 'html' do
-      @supervisors = Supervisor.all
+      @supervisors = Supervisor.order('name ASC').all
+      normalize_status_data!
       
+      erb :index
+    end
+    
+    get '/supervisors/:name' do
+      @supervisor = Supervisor.find_by_name params[:name]
       erb :show
     end
     
-    get '/api/status/:name', :provides => 'json' do
-      supervisor = Supervisor.find_or_create_by_name params[:name]
-      
-      
-    end
-    
-    post '/api/status/:name', :provides => 'json' do
+    # Responds with the latest databag instructions for the supervisor
+    get '/api/status/:name' do
       @supervisor = Supervisor.find_or_create_by_name params[:name]
       
-      @supervisor.update_attributes :last_checkin_at => Time.now, :status => params[:status]
+      content_type :json
+      ActiveSupport::JSON.encode( @supervisor.databag || {} )
     end
-
-    # get '/up.txt' do
-    #       content_type 'text/plain'
-    #       if Healthy::Diagnostic.all_good?
-    #         return halt(200, 'PASS')
-    #       else
-    #         return halt(500, 'FAIL')
-    #       end
-    #     end
-    #     
-    #     get '/:info' do
-    #       Healthy::Diagnostic.info_for(params[:info])
-    #     end
+    
+    # Saves the status update to the db
+    post '/api/status/:name' do
+      @supervisor = Supervisor.find_or_create_by_name params[:name]
+      
+      status = ActiveSupport::JSON.decode( params[:status] )
+      
+      @supervisor.update_attributes :last_checkin_at => Time.now, :status => status
+      
+      content_type :json
+      ActiveSupport::JSON.encode( {:status => 'Ok'} )
+    end
+    
+    # These should not be gets
+    # But I'd like to get this working before I go about making the links to POST
+    get '/set/:supervisor_name/:worker_name/:action' do
+      @supervisor = Supervisor.find_or_create_by_name params[:supervisor_name]
+      
+      @supervisor.set_target_state!(params[:action], params[:worker_name])
+      redirect '/'
+    end
     
     helpers do
       def url_for(path)
         "#{request.env['SCRIPT_NAME']}/#{path}"
+      end
+      
+      def url_for_worker(supervisor, name, action)
+        url_for("/set/#{supervisor.name}/#{name}/#{action}")
       end
       
       def display_name(check)
@@ -52,7 +66,11 @@ module MagistrateMonitor
         klass.respond_to?(:display_name) ? klass.display_name : klass.name
       end
       
-      
+      def normalize_status_data!
+        @supervisors.each do |supervisor|
+          supervisor.normalize_status_data!
+        end
+      end
     end
   end
 end

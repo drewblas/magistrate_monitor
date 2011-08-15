@@ -1,12 +1,15 @@
-<html>
-<body>
-<h1>Hi</h1>
+<h1>Supervisor Details : <%= params[:name] %></h1>
 
-<% @supervisors.each do |supervisor| -%>
-  <tr>
-    <td><%= supervisor.name %></td>
-    <td><%= supervisor.last_checkin_at %></td>
-  </tr>
-<% end -%>
-</body>
-</html>
+<% if @supervisor %>
+  <h3>Status from supervisor</h3>
+  <p><pre>
+    <%= @supervisor.status.inspect %>
+  </pre></p>
+  
+  <h3>Databag to be sent to supervisor</h3>
+  <p><pre>
+    <%= @supervisor.databag.inspect %>
+  </pre></p>
+<% else %>
+  No supervisor by the name <%= params[:name] %>
+<% end %>

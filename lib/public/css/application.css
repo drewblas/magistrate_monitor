@@ -1,0 +1,23 @@
+#main{
+  margin: 2em;
+}
+
+table{
+  margin: 0.5em;
+}
+
+th{
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+tr{
+  padding: 0.2em;
+  border: 1px solid black;
+}
+
+td{
+  padding: 0.4em;
+  margin: 0.4em;
+  border: 1px solid blue;
+}
