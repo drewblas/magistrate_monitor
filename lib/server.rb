@@ -49,7 +49,7 @@ module MagistrateMonitor
       @supervisor = Supervisor.find_or_create_by_name params[:supervisor_name]
       
       @supervisor.set_target_state!(params[:action], params[:worker_name])
-      redirect '/'
+      redirect url_for('/')
     end
     
     helpers do

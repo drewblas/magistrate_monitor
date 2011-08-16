@@ -20,7 +20,7 @@ module Sinatra
 
     def database
       @database ||= (
-        ActiveRecord::Base.logger = activerecord_logger
+        #ActiveRecord::Base.logger ||= activerecord_logger # Having this enabled overrides Rails TODO: Find a way to make it not override Rails
         ActiveRecord::Base.establish_connection(database_options)
         ActiveRecord::Base
       )
@@ -37,11 +37,12 @@ module Sinatra
       app.configure do
         if defined?(Rails)
           env = Rails.env
-          file = File.join(Rails.root, "config", "database.yml")
         else
+          
           env = ENV['RACK_ENV'] || 'development'
-          file = File.join('config', 'database.yml')
         end
+        
+        file = File.join('config', 'database.yml')
 
         app.database = YAML::load(ERB.new(IO.read(file)).result).with_indifferent_access[env]
       end
