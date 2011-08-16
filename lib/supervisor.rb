@@ -21,12 +21,13 @@ module MagistrateMonitor
         end
       end
       
-      self.databag ||= {}
+      self.databag ||= {'workers' => {}}
     end
     
     def set_target_state!(action, worker)
       d = self.databag || {}
-      d[worker] = {'target_state' => action }
+      d['workers'] ||= {}
+      d['workers'][worker] = {'target_state' => action }
       self.update_attribute :databag, d
     end
   end

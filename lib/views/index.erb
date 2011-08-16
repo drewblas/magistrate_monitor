@@ -6,15 +6,15 @@
       <th>Supervisor</th>
       <th>Worker</th>
       <th>State</th>
-      <th>Known Target State</th>
-      <th>Set Target State</th>
+      <th>Client Target State</th>
+      <th>Server Target State</th>
       <th colspan="3">Actions</th>
     </tr>
   </thead>
   
   <% @supervisors.each do |supervisor| %>
     <tr>
-      <th><%= supervisor.name %><br>
+      <th><a href="<%= url_for "supervisors/#{supervisor.name}" %>"><%= supervisor.name %></a><br>
           <%= supervisor.last_checkin_at %></th>
     </tr>
     <% supervisor.status.each do |k,v| %>
@@ -23,7 +23,7 @@
         <td><%= k %></td>
         <td><%= v['state'] %></td>
         <td><%= v['target_state']%></td>
-        <td><%= supervisor.databag[k]['target_state'] if supervisor.databag[k].is_a?(Hash) %></td>
+        <td><%= supervisor.databag['workers'][k]['target_state'] if supervisor.databag['workers'].is_a?(Hash) && supervisor.databag['workers'][k].is_a?(Hash) %></td>
         <td>
           <% if v['state'] != 'running' %>
             <a href="<%= url_for_worker(supervisor, k, 'running') %>">Run</a>
