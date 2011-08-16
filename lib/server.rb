@@ -58,14 +58,9 @@ module MagistrateMonitor
       end
       
       def url_for_worker(supervisor, name, action)
-        url_for("/set/#{supervisor.name}/#{name}/#{action}")
+        url_for("set/#{supervisor.name}/#{name}/#{action}")
       end
-      
-      def display_name(check)
-        klass = check.class
-        klass.respond_to?(:display_name) ? klass.display_name : klass.name
-      end
-      
+
       def normalize_status_data!
         @supervisors.each do |supervisor|
           supervisor.normalize_status_data!
