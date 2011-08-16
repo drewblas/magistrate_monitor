@@ -3,22 +3,34 @@
 MagistrateMonitor is a frontend to the Magistrate gem that allows the gem to check in with the status of its workers and to receive commands from
 the frontend user (such as enable/disable and start/stop workers)
 
-== Mounting the application in rails 2.3.*
+== Installation
+
+=== Standalone Sinatra
+MagistrateMonitor will run as a standalone Sinatra app.  It will use ActiveRecord for the DB connection.  Create a config/database.yml file
+with your connection details.  Then run rake db:migrate as normal.  Then you can start the app with rackup or your other preferred method.
+
+=== Mounting in Rails 3.x
+MagistrateMonitor will mount in a Rails 3.x app very easily.  Copy the migrations to your main migration folder and run them.  
+Then add this to your routes.rb:
+
+    mount MagistrateMonitor::Server => '/magistrate'
+
+=== Mounting the application in rails 2.3.*
 
 Create a new folder in app called metal. Add the file magistrate_monitor_web.rb with:
   
-  require 'magistrate_monitor'
-  class MagistrateMonitorWeb
-    @app = Rack::Builder.new {
-      map "/magistrate_monitor" do
-        run MagistrateMonitor::Server.new
-      end
-    }.to_app
+    require 'magistrate_monitor'
+    class MagistrateMonitorWeb
+      @app = Rack::Builder.new {
+        map "/magistrate_monitor" do
+          run MagistrateMonitor::Server.new
+        end
+      }.to_app
 
-    def self.call(env)
-      @app.call(env)
+      def self.call(env)
+        @app.call(env)
+      end
     end
-  end
   
 This will route all requests to /magistrate_monitor to the magistrate_monitor rack app
 
@@ -34,8 +46,7 @@ This will route all requests to /magistrate_monitor to the magistrate_monitor ra
 
 == Copyright
 
-Copyright (c) 2011 Drew Blas. See LICENSE.txt for
-further details.
+Copyright (c) 2011 Drew Blas. See LICENSE.txt for further details.
 
 == Acknowledgements
 
