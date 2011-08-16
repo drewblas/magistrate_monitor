@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
 
   s.author    = 'Drew Blas'
   s.email     = 'drew.blas@gmail.com'
-  s.date = %q{2011-08-10}
+  s.date      = '2011-08-10'
   
   #  s.rubygems_version = %q{1.3.6}
 
@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md",
     "Rakefile",
-    "config.ru"
+    "config.ru",
     "bin/magistrate_monitor-web",
     "db/migrate/20110808122502_create_magistrate_monitor_table.rb",
     "lib/magistrate_monitor.rb",
