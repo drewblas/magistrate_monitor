@@ -10,8 +10,11 @@ MagistrateMonitor will run as a standalone Sinatra app.  It will use ActiveRecor
 with your connection details.  Then run rake db:migrate as normal.  Then you can start the app with rackup or your other preferred method.
 
 === Mounting in Rails 3.x
-MagistrateMonitor will mount in a Rails 3.x app very easily.  Copy the migrations to your main migration folder and run them.  
-Then add this to your routes.rb:
+MagistrateMonitor will mount in a Rails 3.x app very easily.  
+
+1. Add the gem to your Gemfile: `gem 'magistrate_monitor`
+2. Copy the migrations to your main migration folder and run them.
+3. Then add this to your routes.rb:
 
     mount MagistrateMonitor::Server => '/magistrate'
 

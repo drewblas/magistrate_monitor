@@ -21,11 +21,12 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md",
     "Rakefile",
+    "config.ru"
     "bin/magistrate_monitor-web",
     "db/migrate/20110808122502_create_magistrate_monitor_table.rb",
     "lib/magistrate_monitor.rb",
     "lib/server.rb",
-    "lib/sinatra_activerecord.rb",
+    "lib/sinatra-activerecord.rb",
     "lib/supervisor.rb",
     "lib/public/css/application.css",
     "lib/public/css/style.css",
@@ -41,8 +42,8 @@ Gem::Specification.new do |s|
 
   s.test_files = [
     "spec/spec_helper.rb",
-    "server_spec.rb",
-    "supervisor_spec.rb"
+    "spec/server_spec.rb",
+    "spec/supervisor_spec.rb"
   ]
 
   s.add_development_dependency('rake')
