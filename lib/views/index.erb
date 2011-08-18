@@ -5,6 +5,7 @@
     <tr>
       <th>Supervisor</th>
       <th>Worker</th>
+      <th>pid</th>
       <th>State</th>
       <th>Client Target State</th>
       <th>Server Target State</th>
@@ -22,6 +23,7 @@
       <tr>
         <th> - </th>
         <th><%= k %></th>
+        <td><%= v['pid'] %></td>
         <td><%= v['state'] %></td>
         <td><%= v['target_state']%></td>
         <td><%= supervisor.databag['workers'][k]['target_state'] if supervisor.databag['workers'].is_a?(Hash) && supervisor.databag['workers'][k].is_a?(Hash) %></td>
