@@ -3,12 +3,12 @@
 <% if @supervisor %>
   <h3>Status from supervisor</h3>
   <p><pre>
-    <%= @supervisor.status.inspect %>
+    <%= @supervisor.status.ai(:html => true) %>
   </pre></p>
   
   <h3>Databag to be sent to supervisor</h3>
   <p><pre>
-    <%= @supervisor.databag.inspect %>
+    <%= @supervisor.databag.ai(:html => true) %>
   </pre></p>
 <% else %>
   No supervisor by the name <%= params[:name] %>

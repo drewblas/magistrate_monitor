@@ -4,6 +4,7 @@ PATH
     magistrate_monitor (0.1.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
+      awesome_print (~> 0.4.0)
       sinatra (~> 1.2.6)
 
 GEM
@@ -20,6 +21,7 @@ GEM
       tzinfo (~> 0.3.23)
     activesupport (3.0.9)
     arel (2.0.10)
+    awesome_print (0.4.0)
     builder (2.1.2)
     cgi_multipart_eof_fix (2.5.0)
     daemons (1.1.4)

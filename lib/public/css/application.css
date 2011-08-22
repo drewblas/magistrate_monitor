@@ -21,3 +21,8 @@ td{
   margin: 0.4em;
   border: 1px solid blue;
 }
+
+pre{
+  margin: 0;
+  display: inline;
+}

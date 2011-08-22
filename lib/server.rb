@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra-activerecord'
 
 require 'supervisor'
+require 'awesome_print'
 
 module MagistrateMonitor
   class Server < Sinatra::Base
@@ -73,10 +74,10 @@ module MagistrateMonitor
     end
     
     helpers do
-      def url_for(path)
-        root = request.env['SCRIPT_NAME'].chomp('/')
-        "#{root}/#{path}"
-      end
+      # def url_for(path)
+      #   root = request.env['SCRIPT_NAME'].chomp('/')
+      #   "#{root}/#{path}"
+      # end
       
       def url_for_worker(supervisor, name, action)
         url("/set/#{supervisor.name}/#{name}/#{action}")

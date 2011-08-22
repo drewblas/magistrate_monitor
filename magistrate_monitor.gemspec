@@ -55,4 +55,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('sinatra', '~> 1.2.6')
   s.add_runtime_dependency('activerecord', '>= 3.0')
   s.add_runtime_dependency('activesupport', '>= 3.0')
+  s.add_runtime_dependency('awesome_print', '~> 0.4.0')
 end
