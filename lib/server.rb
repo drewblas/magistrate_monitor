@@ -49,12 +49,13 @@ module MagistrateMonitor
       @supervisor = Supervisor.find_or_create_by_name params[:supervisor_name]
       
       @supervisor.set_target_state!(params[:action], params[:worker_name])
-      redirect url_for('/')
+      redirect url_for('')
     end
     
     helpers do
       def url_for(path)
-        "#{request.env['SCRIPT_NAME']}/#{path}"
+        root = request.env['SCRIPT_NAME'].chomp('/')
+        "#{root}/#{path}"
       end
       
       def url_for_worker(supervisor, name, action)
