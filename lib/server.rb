@@ -58,14 +58,12 @@ module MagistrateMonitor
       content_type :json
       ActiveSupport::JSON.encode( {:status => 'Ok'} )
     end
-    
-    # These should not be gets
-    # But I'd like to get this working before I go about making the links to POST
-    get '/set/:supervisor_name/:worker_name/:action' do
+
+    post '/set/:supervisor_name/:worker_name/:action' do
       @supervisor = Supervisor.find_or_create_by_name params[:supervisor_name]
       
       @supervisor.set_target_state!(params[:action], params[:worker_name])
-      redirect url_for('')
+      redirect url('/')
     end
     
     helpers do
@@ -75,7 +73,7 @@ module MagistrateMonitor
       end
       
       def url_for_worker(supervisor, name, action)
-        url_for("set/#{supervisor.name}/#{name}/#{action}")
+        url("/set/#{supervisor.name}/#{name}/#{action}")
       end
 
       def normalize_status_data!
