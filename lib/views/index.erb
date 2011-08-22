@@ -18,7 +18,7 @@
       <th><a href="<%= url "/supervisors/#{supervisor.name}" %>"><%= supervisor.name %></a><br>
           <%= supervisor.last_checkin_at %></th>
       <th colspan="7"> - </th>
-      <td><a href="<%= url "/supervisors/#{supervisor.name}/delete" %>" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a><br>
+      <td><a href="<%= url "/supervisors/#{supervisor.name}/delete" %>" data-confirm="Are you sure?" data-method="post" rel="nofollow">Delete</a><br>
     </tr>
     <% supervisor.status.each do |k,v| %>
       <tr>

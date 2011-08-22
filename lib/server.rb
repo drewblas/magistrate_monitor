@@ -39,6 +39,12 @@ module MagistrateMonitor
       erb :show
     end
     
+    post '/supervisors/:name/delete' do
+      @supervisor = Supervisor.find_by_name! params[:name]
+      @supervisor.destroy
+      redirect url('/')
+    end
+    
     # Responds with the latest databag instructions for the supervisor
     get '/api/status/:name' do
       @supervisor = Supervisor.find_or_create_by_name params[:name]
