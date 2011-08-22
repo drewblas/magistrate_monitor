@@ -10,7 +10,23 @@ module MagistrateMonitor
     set :views,  "#{dir}/views"
     set :public, "#{dir}/public"
     set :static, true
-        
+    
+    set :basic_auth_credentials, lambda {
+      config_file = File.join('config', 'magistrate.yml')
+      if File.exist?( config_file )
+        config = File.open(config_file) { |file| YAML.load(file) }
+        if config['http_username'] && config['http_password']
+          [config['http_username'], config['http_password']]
+        end
+      end
+    }
+    
+    if basic_auth_credentials
+      use Rack::Auth::Basic do |username, password|
+        [username, password] == basic_auth_credentials
+      end
+    end
+    
     get '/', :provides => 'html' do
       @supervisors = Supervisor.order('name ASC').all
       normalize_status_data!
