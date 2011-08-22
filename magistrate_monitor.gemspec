@@ -51,6 +51,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rcov', '>= 0')
   s.add_development_dependency('sqlite3')
   s.add_development_dependency('mongrel')
+  s.add_development_dependency('rack-test')
   s.add_runtime_dependency('sinatra', '~> 1.2.6')
   s.add_runtime_dependency('activerecord', '>= 3.0')
   s.add_runtime_dependency('activesupport', '>= 3.0')

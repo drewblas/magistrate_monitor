@@ -21,13 +21,13 @@ module MagistrateMonitor
       end
     }
     
-    if basic_auth_credentials
+    if basic_auth_credentials && ENV['RACK_ENV'] != 'test'
       use Rack::Auth::Basic do |username, password|
         [username, password] == basic_auth_credentials
       end
     end
     
-    get '/', :provides => 'html' do
+    get '/' do
       @supervisors = Supervisor.order('name ASC').all
       normalize_status_data!
       
@@ -35,7 +35,7 @@ module MagistrateMonitor
     end
     
     get '/supervisors/:name' do
-      @supervisor = Supervisor.find_by_name params[:name]
+      @supervisor = Supervisor.find_by_name! params[:name]
       erb :show
     end
     
