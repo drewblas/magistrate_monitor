@@ -9,19 +9,17 @@ module MagistrateMonitor
     # All supervisors have a status that is a hash
     # If it has something else for whatever reason, the real object is put in a hash under the 'status' key
     def normalize_status_data!
-      self.status ||= {}
+      self.status ||= {}      
+      self.status['workers'] ||= {}
       
-      unless self.status.is_a?(Hash)
-        self.status = { 'data-error' => self.status.inspect }
-      end
-      
-      self.status.each do |k,v|
+      self.status['workers'].each do |k,v|
         unless v.is_a?(Hash)
           v = {'state' => v.inspect }
         end
       end
       
-      self.databag ||= {'workers' => {}}
+      self.databag ||= {}
+      self.databag['workers'] ||= {}
     end
     
     def set_target_state!(action, worker)

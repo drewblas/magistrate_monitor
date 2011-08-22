@@ -20,7 +20,7 @@
       <th colspan="7"> - </th>
       <td><a href="<%= url "/supervisors/#{supervisor.name}/delete" %>" data-confirm="Are you sure?" data-method="post" rel="nofollow">Delete</a><br>
     </tr>
-    <% supervisor.status.each do |k,v| %>
+    <% supervisor.status['workers'].each do |k,v| %>
       <tr>
         <th> - </th>
         <th><%= k %></th>
