@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "magistrate_monitor"
-  s.version = "0.2.1"
+  s.version = "0.2.2"
   
   s.summary = "The user frontend to monitoring and managing the magistrate gem"
   s.description = "Receives checkins from the magistrate gem and sends back commands"
