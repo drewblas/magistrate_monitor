@@ -26,6 +26,7 @@ module MagistrateMonitor
       d = self.databag || {}
       d['workers'] ||= {}
       d['workers'][worker] ||= {}
+      self.databag = d
     end
     
     # This method abstracts access to a worker's databag.  It guarantees to return a hash of some sort useful for referencing worker properties
