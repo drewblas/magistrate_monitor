@@ -22,11 +22,23 @@ module MagistrateMonitor
       self.databag['workers'] ||= {}
     end
     
-    def set_target_state!(action, worker)
+    def normalize_databag_for!(worker)
       d = self.databag || {}
       d['workers'] ||= {}
-      d['workers'][worker] = {'target_state' => action }
-      self.update_attribute :databag, d
+      d['workers'][worker] ||= {}
+    end
+    
+    # This method abstracts access to a worker's databag.  It guarantees to return a hash of some sort useful for referencing worker properties
+    # However, changes to this hash may not be propegated back.
+    # Quite possibly it would be better to do checking here like in set_target_state! to normalize the data?
+    def databag_for(worker)
+      (self.databag['workers'].is_a?(Hash) ? self.databag['workers'][worker] : {}) || {}
+    end
+    
+    def set_target_state!(action, worker)
+      normalize_databag_for!(worker)
+      self.databag['workers'][worker]['target_state'] = action
+      self.update_attribute :databag, self.databag
     end
   end
 end

@@ -28,6 +28,30 @@ describe "MagistrateMonitor::Server" do
     last_response.status.should == 302
   end
   
+  it 'should set the target state to running' do
+    @supervisor.set_target_state!('stopped', 'worker1')
+    @supervisor.databag['workers']['worker1']['target_state'].should == 'stopped'
+    
+    post '/supervisors/foo/workers/worker1/set/running'
+    
+    last_response.status.should == 302
+    
+    @supervisor.reload
+    @supervisor.databag['workers']['worker1']['target_state'].should == 'running'
+  end
+  
+  ['stopped', 'restart', 'unmonitored'].each do |action|
+    it "should set the target state to #{action}" do
+      @supervisor.databag['workers']['worker1']['target_state'].should_not == action
+      post "/supervisors/foo/workers/worker1/set/#{action}"
+    
+      last_response.status.should == 302
+    
+      @supervisor.reload
+      @supervisor.databag['workers']['worker1']['target_state'].should == action
+    end
+  end
+  
   context 'api' do
     it 'should provide the databag' do
       get '/api/status/foo'

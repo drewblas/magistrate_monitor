@@ -9,7 +9,7 @@
       <th>State</th>
       <th>Supervisor Target State</th>
       <th>Monitor Target State</th>
-      <th colspan="3">Actions</th>
+      <th colspan="4">Actions</th>
     </tr>
   </thead>
   
@@ -17,30 +17,37 @@
     <tr>
       <th><a href="<%= url "/supervisors/#{supervisor.name}" %>"><%= supervisor.name %></a><br>
           <%= supervisor.last_checkin_at %></th>
-      <th colspan="7"> - </th>
+      <th colspan="8"> - </th>
       <td><a href="<%= url "/supervisors/#{supervisor.name}/delete" %>" data-confirm="Are you sure?" data-method="post" rel="nofollow">Delete</a><br>
     </tr>
     <% supervisor.status['workers'].each do |k,v| %>
+      <% databag = supervisor.databag_for(k) %>
+      <% current_target_state = databag['target_state'] %>
       <tr>
         <th> - </th>
         <th><%= k %></th>
         <td><%= v['pid'] %></td>
         <td><%= v['state'] %></td>
         <td><%= v['target_state']%></td>
-        <td><%= supervisor.databag['workers'][k]['target_state'] if supervisor.databag['workers'].is_a?(Hash) && supervisor.databag['workers'][k].is_a?(Hash) %></td>
+        <td><%= current_target_state %></td>
         <td>
-          <% if v['state'] != 'running' %>
-            <a href="<%= url_for_worker(supervisor, k, 'running') %>" data-method="post" rel="nofollow">Run</a>
+          <% if current_target_state != 'running' %>
+            <a href="<%= target_state_url_for_worker(supervisor, k, 'running') %>" data-method="post" rel="nofollow">Run</a>
           <% end %>
         </td>
         <td>
-          <% if v['state'] != 'stopped' %>
-            <a href="<%= url_for_worker(supervisor, k, 'stopped') %>" data-method="post" rel="nofollow">Stop</a>
+          <% if current_target_state != 'stopped' %>
+            <a href="<%= target_state_url_for_worker(supervisor, k, 'stopped') %>" data-method="post" rel="nofollow">Stop</a>
           <% end %>
         </td>
         <td>
-          <% if v['state'] != 'unmonitored' %>
-            <a href="<%= url_for_worker(supervisor, k, 'unmonitored') %>" data-method="post" rel="nofollow">Unmonitor</a>
+          <% if current_target_state != 'forced_restart' %>
+            <a href="<%= target_state_url_for_worker(supervisor, k, 'forced_restart') %>" data-method="post" rel="nofollow">Restart</a>
+          <% end %>
+        </td>
+        <td>
+          <% if current_target_state != 'unmonitored' %>
+            <a href="<%= target_state_url_for_worker(supervisor, k, 'unmonitored') %>" data-method="post" rel="nofollow">Unmonitor</a>
           <% end %>
         </td>
       </tr>

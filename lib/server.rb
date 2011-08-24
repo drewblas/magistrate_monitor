@@ -66,7 +66,7 @@ module MagistrateMonitor
       ActiveSupport::JSON.encode( {:status => 'Ok'} )
     end
 
-    post '/set/:supervisor_name/:worker_name/:action' do
+    post '/supervisors/:supervisor_name/workers/:worker_name/set_target_state/:action' do
       @supervisor = Supervisor.find_or_create_by_name params[:supervisor_name]
       
       @supervisor.set_target_state!(params[:action], params[:worker_name])
@@ -79,8 +79,8 @@ module MagistrateMonitor
       #   "#{root}/#{path}"
       # end
       
-      def url_for_worker(supervisor, name, action)
-        url("/set/#{supervisor.name}/#{name}/#{action}")
+      def target_state_url_for_worker(supervisor, name, action)
+        url("/supervisors/#{supervisor.name}/workers/#{name}/set_target_state/#{action}")
       end
 
       def normalize_status_data!
