@@ -32,7 +32,7 @@ describe "MagistrateMonitor::Server" do
     @supervisor.set_target_state!('stopped', 'worker1')
     @supervisor.databag['workers']['worker1']['target_state'].should == 'stopped'
     
-    post '/supervisors/foo/workers/worker1/set/running'
+    post '/supervisors/foo/workers/worker1/set_target_state/running'
     
     last_response.status.should == 302
     
@@ -43,7 +43,7 @@ describe "MagistrateMonitor::Server" do
   ['stopped', 'restart', 'unmonitored'].each do |action|
     it "should set the target state to #{action}" do
       @supervisor.databag['workers']['worker1']['target_state'].should_not == action
-      post "/supervisors/foo/workers/worker1/set/#{action}"
+      post "/supervisors/foo/workers/worker1/set_target_state/#{action}"
     
       last_response.status.should == 302
     
