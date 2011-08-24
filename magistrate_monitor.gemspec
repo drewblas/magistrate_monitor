@@ -1,13 +1,12 @@
 Gem::Specification.new do |s|
   s.name = "magistrate_monitor"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
   
   s.summary = "The user frontend to monitoring and managing the magistrate gem"
   s.description = "Receives checkins from the magistrate gem and sends back commands"
 
   s.author    = 'Drew Blas'
   s.email     = 'drew.blas@gmail.com'
-  s.date      = '2011-08-10'
   
   #  s.rubygems_version = %q{1.3.6}
 
