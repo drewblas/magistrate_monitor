@@ -1,7 +1,7 @@
 require 'sinatra/base'
-require 'sinatra-activerecord'
+require 'magistrate_monitor/sinatra-activerecord'
 
-require 'supervisor'
+require 'magistrate_monitor/supervisor'
 require 'awesome_print'
 
 module MagistrateMonitor

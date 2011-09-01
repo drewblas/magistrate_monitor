@@ -1,5 +1,4 @@
 require "spec_helper"
-require "supervisor"
 
 describe "Supervisor" do
   before(:each) do
