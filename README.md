@@ -1,15 +1,15 @@
-= Magistrate Monitor
+# Magistrate Monitor
 
 MagistrateMonitor is a frontend to the Magistrate gem that allows the gem to check in with the status of its workers and to receive commands from
 the frontend user (such as enable/disable and start/stop workers)
 
-== Installation
+## Installation
 
-=== Standalone Sinatra
+### Standalone Sinatra
 MagistrateMonitor will run as a standalone Sinatra app.  It will use ActiveRecord for the DB connection.  Create a config/database.yml file
 with your connection details.  Then run rake db:migrate as normal.  Then you can start the app with rackup or your other preferred method.
 
-=== Mounting in Rails 3.x
+### Mounting in Rails 3.x
 MagistrateMonitor will mount in a Rails 3.x app very easily.  
 
 1. Add the gem to your Gemfile: `gem 'magistrate_monitor`
@@ -18,7 +18,7 @@ MagistrateMonitor will mount in a Rails 3.x app very easily.
 
     mount MagistrateMonitor::Server => '/magistrate'
 
-=== Mounting the application in rails 2.3.*
+### Mounting the application in rails 2.3.*
 
 Create a new folder in app called metal. Add the file magistrate_monitor_web.rb with:
   
@@ -37,7 +37,7 @@ Create a new folder in app called metal. Add the file magistrate_monitor_web.rb 
   
 This will route all requests to /magistrate_monitor to the magistrate_monitor rack app
 
-== Contributing to magistrate_monitor
+## Contributing to magistrate_monitor
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -47,10 +47,10 @@ This will route all requests to /magistrate_monitor to the magistrate_monitor ra
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2011 Drew Blas. See LICENSE.txt for further details.
 
-== Acknowledgements
+## Acknowledgements
 
 Thanks to Matthew Deiter's healthy gem for the example of building this as a rack app (since I couldn't get 3.1 mountable engines to work)
