@@ -13,13 +13,17 @@ module MagistrateMonitor
     set :static, true
     
     set :basic_auth_credentials, lambda {
+      result = nil
+      
       config_file = File.join('config', 'magistrate.yml')
       if File.exist?( config_file )
         config = File.open(config_file) { |file| YAML.load(file) }
         if config['http_username'] && config['http_password']
-          [config['http_username'], config['http_password']]
+          result = [config['http_username'], config['http_password']]
         end
       end
+      
+      result
     }
     
     if basic_auth_credentials && ENV['RACK_ENV'] != 'test'
