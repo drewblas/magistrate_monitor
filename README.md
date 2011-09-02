@@ -17,6 +17,8 @@ MagistrateMonitor will mount in a Rails 3.x app very easily.
 3. Then add this to your routes.rb:
 
     mount MagistrateMonitor::Server => '/magistrate'
+    
+4. Add a config/magistrate.yml file if you want to have authentication (see the magistrate gem's example_config.yml)
 
 ### Mounting the application in rails 2.3.*
 
