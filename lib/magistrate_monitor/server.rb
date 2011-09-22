@@ -17,7 +17,7 @@ module MagistrateMonitor
       
       config_file = File.join('config', 'magistrate.yml')
       if File.exist?( config_file )
-        config = File.open(config_file) { |file| YAML.load(file) }
+        config = YAML::load( File.open(config_file) )
         if config['http_username'] && config['http_password']
           result = [config['http_username'], config['http_password']]
         end
