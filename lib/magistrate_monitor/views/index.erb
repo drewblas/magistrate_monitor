@@ -16,7 +16,7 @@
   <% @supervisors.each do |supervisor| %>
     <tr>
       <th><a href="<%= url "/supervisors/#{supervisor.name}" %>"><%= supervisor.name %></a><br>
-          <%= supervisor.last_checkin_at %></th>
+          <%= supervisor.last_checkin_at.strftime('%Y-%m-%dT%H:%M:%S%z') if supervisor.last_checkin_at %></th>
       <th colspan="8"> - </th>
       <td><a href="<%= url "/supervisors/#{supervisor.name}/delete" %>" data-confirm="Are you sure?" data-method="post" rel="nofollow">Delete</a><br>
     </tr>
